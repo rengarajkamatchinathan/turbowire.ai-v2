@@ -11,6 +11,7 @@ import { Button } from '../ui/button';
 import { MessageCircleCodeIcon, Zap, Cpu } from 'lucide-react';
 import WorkspaceHistory from './WorkspaceHistory';
 import SideBarFooter from './SideBarFooter';
+import Link from 'next/link';
 
 function AppSideBar() {
   return (
@@ -22,9 +23,11 @@ function AppSideBar() {
             <h1 className='font-semibold opacity-70 hover:opacity-100'>Turbowore.ai</h1>
             </span>
         </div>
+        <Link href={'/'} className="flex items-center gap-2">
         <Button className="mt-5 neon-btn-blue">
           <MessageCircleCodeIcon /> Start New Chat
         </Button>
+        </Link>
       </SidebarHeader>
       <SidebarContent className="">
         <SidebarGroup>
