@@ -15,7 +15,7 @@ import axios from 'axios';
 import { useConvex, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useParams } from 'next/navigation';
-import { Loader2Icon, Code, Eye } from 'lucide-react';
+import { Loader2Icon } from 'lucide-react';
 import { countToken } from './ChatView';
 import { UserDetailContext } from '@/context/UserDetailContext';
 import { toast } from 'sonner';
@@ -70,9 +70,10 @@ function CodeView() {
       console.log('DEBUG: Messages current view - ',messages);
     }
     if (userDetail?.token < 10) {
-      toast("You don't have enough tokens to generate code");
+      toast("You don't have enough token to generate code");
       return;
     }
+    // return;
     setLoading(true);
     const PROMPT = JSON.stringify(messages) + ' ' + Prompt.CODE_GEN_PROMPT;
 
@@ -106,116 +107,52 @@ function CodeView() {
   };
 
   return (
-    <div className="relative h-full">
-      {/* Header */}
-      <div className="glass-panel mx-4 mb-4 p-3">
-        <div className="flex items-center justify-center">
-          <div className="flex items-center bg-black/50 p-1 rounded-full border border-blue-400/30">
-            <button
-              onClick={() => setActiveTab('code')}
-              className={`code-tab px-6 py-2 rounded-full flex items-center gap-2 transition-all duration-300 ${
-                activeTab === 'code' ? 'active' : ''
-              }`}
-            >
-              <Code className="w-4 h-4" />
-              Code
-            </button>
-            <button
-              onClick={() => setActiveTab('preview')}
-              className={`code-tab px-6 py-2 rounded-full flex items-center gap-2 transition-all duration-300 ${
-                activeTab === 'preview' ? 'active' : ''
-              }`}
-            >
-              <Eye className="w-4 h-4" />
-              Preview
-            </button>
-          </div>
+    <div className="relative">
+      <div className="bg-[#181818] w-full p-2 border">
+        <div className="flex items-center flex-wrap shrink-0 bg-black p-1 w-[140px] gap-3 justify-center rounded-full">
+          <h2
+            onClick={() => setActiveTab('code')}
+            className={`text-sm cursor-pointer ${activeTab == 'code' && 'text-blue-500 bg-blue-500 bg-opacity-25 p-1 px-2  rounded-full'} `}
+          >
+            Code
+          </h2>
+          <h2
+            onClick={() => setActiveTab('preview')}
+            className={`text-sm cursor-pointer ${activeTab == 'preview' && 'text-blue-500 bg-blue-500 bg-opacity-25 p-1 px-2  rounded-full'} `}
+          >
+            Preview
+          </h2>
         </div>
       </div>
-
-      {/* Content */}
-      <div className="code-panel mx-4 h-[calc(100%-80px)]">
-        <SandpackProvider
-          files={files}
-          template="react"
-          theme={{
-            colors: {
-              surface1: '#0a0a0f',
-              surface2: '#151520',
-              surface3: '#1a1a25',
-              clickable: '#00d4ff',
-              base: '#e0e6ed',
-              disabled: '#666',
-              hover: '#ff6b00',
-              accent: '#00d4ff',
-              error: '#ff4757',
-              errorSurface: '#2d1b1b',
-            },
-            syntax: {
-              plain: '#e0e6ed',
-              comment: '#666',
-              keyword: '#00d4ff',
-              tag: '#ff6b00',
-              punctuation: '#e0e6ed',
-              definition: '#00d4ff',
-              property: '#ff6b00',
-              static: '#00d4ff',
-              string: '#a8e6cf',
-            },
-            font: {
-              body: '"Rajdhani", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
-              mono: '"Fira Code", "DejaVu Sans Mono", Menlo, Consolas, monospace',
-              size: '14px',
-              lineHeight: '1.6',
-            },
-          }}
-          customSetup={{
-            dependencies: {
-              ...Lookup.DEPENDANCY,
-            },
-          }}
-          options={{ 
-            externalResources: ['https://cdn.tailwindcss.com'],
-            editorHeight: '100%',
-            editorWidthPercentage: 50,
-          }}
-        >
-          <SandpackLayout style={{ height: '100%', borderRadius: '12px', overflow: 'hidden' }}>
-            {activeTab === 'code' ? (
-              <>
-                <SandpackFileExplorer 
-                  style={{ 
-                    height: '100%',
-                    background: 'rgba(10, 10, 15, 0.9)',
-                    borderRight: '1px solid rgba(0, 212, 255, 0.3)'
-                  }} 
-                />
-                <SandpackCodeEditor 
-                  style={{ 
-                    height: '100%',
-                    background: 'rgba(10, 10, 15, 0.9)'
-                  }} 
-                  showTabs
-                  showLineNumbers
-                  showInlineErrors
-                  wrapContent
-                />
-              </>
-            ) : (
+      <SandpackProvider
+        files={files}
+        template="react"
+        theme={'dark'}
+        customSetup={{
+          dependencies: {
+            ...Lookup.DEPENDANCY,
+          },
+        }}
+        options={{ externalResources: ['https://cdn.tailwindcss.com'] }}
+      >
+        <SandpackLayout>
+          {activeTab == 'code' ? (
+            <>
+              <SandpackFileExplorer style={{ height: '80vh' }} />
+              <SandpackCodeEditor style={{ height: '80vh' }} />
+            </>
+          ) : (
+            <>
               <SandpackPreviewClient />
-            )}
-          </SandpackLayout>
-        </SandpackProvider>
-      </div>
+            </>
+          )}
+        </SandpackLayout>
+      </SandpackProvider>
 
-      {/* Loading overlay */}
       {loading && (
-        <div className="absolute inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center z-50">
-          <div className="glass-panel p-8 text-center">
-            <Loader2Icon className="animate-spin w-12 h-12 text-blue-400 mx-auto mb-4" />
-            <h2 className="text-xl text-blue-300 neon-text-blue">Generating your files...</h2>
-            <p className="text-gray-400 mt-2">AI is crafting your code...</p>
-          </div>
+        <div className="p-10 bg-gray-900 bg-opacity-80 absolute top-0 w-full h-full flex justify-center items-center">
+          <Loader2Icon className="animate-spin w-10 h-10 text-white" />
+          <h2>Generating your files...</h2>
         </div>
       )}
     </div>
