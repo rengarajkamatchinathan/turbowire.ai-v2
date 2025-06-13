@@ -46,10 +46,23 @@ function Hero() {
     <div className="flex flex-col items-center mt-36 xl:mt-42 gap-2">
       {/* Logo */}
       <div className="flex items-center justify-center mb-6">
-        <Zap className="w-10 h-10 text-blue-400 mr-3 neon-text-blue" />
-        <h1 className="text-5xl font-bold hologram-text">TURBOWIRE</h1>
-        <Cpu className="w-8 h-8 text-orange-400 ml-3 neon-text-orange" />
-      </div>
+  <h1
+    className="text-5xl font-bold text-white"
+    style={{
+      textShadow: `
+        -2px 0 6px #00f0ff,
+        -4px 0 12px #00f0ff,
+        2px 0 6px #ff00c8,
+        4px 0 12px #ff00c8,
+        0 0 20px rgba(255, 0, 128, 0.6),
+        0 0 40px rgba(0, 255, 255, 0.6)
+      `,
+    }}
+  >
+    TURBOWIRE
+  </h1>
+</div>
+
 
       <h2 className="font-bold text-4xl neon-text-blue">{Lookup.HERO_HEADING}</h2>
       <p className="text-gray-400 font-medium">{Lookup.HERO_DESC}</p>

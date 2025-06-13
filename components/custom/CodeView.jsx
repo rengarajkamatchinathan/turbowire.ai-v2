@@ -1,6 +1,5 @@
 'use client';
 import React, { useContext, useEffect, useState } from 'react';
-
 import {
   SandpackProvider,
   SandpackLayout,
@@ -15,12 +14,14 @@ import axios from 'axios';
 import { useConvex, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useParams } from 'next/navigation';
-import { Loader2Icon } from 'lucide-react';
+import { Download, Loader2Icon } from 'lucide-react';
 import { countToken } from './ChatView';
 import { UserDetailContext } from '@/context/UserDetailContext';
 import { toast } from 'sonner';
 import SandpackPreviewClient from './SandpackPreviewClient';
 import { ActionContext } from '@/context/ActionContext';
+import { downloadZip } from '@/app/utils/createZip';
+import { Button } from '../ui/button';
 
 const debug = true;
 
@@ -73,7 +74,6 @@ function CodeView() {
       toast("You don't have enough token to generate code");
       return;
     }
-    // return;
     setLoading(true);
     const PROMPT = JSON.stringify(messages) + ' ' + Prompt.CODE_GEN_PROMPT;
 
@@ -106,9 +106,14 @@ function CodeView() {
     });
   };
 
+  const handleDownload = () => {
+    console.log('DEBUG ZIP FILES:', files);
+    downloadZip(files);
+  };
+
   return (
     <div className="relative">
-      <div className="bg-[#181818] w-full p-2 border">
+      <div className="bg-[#181818] w-full p-2 border flex items-center justify-between">
         <div className="flex items-center flex-wrap shrink-0 bg-black p-1 w-[140px] gap-3 justify-center rounded-full">
           <h2
             onClick={() => setActiveTab('code')}
@@ -123,6 +128,16 @@ function CodeView() {
             Preview
           </h2>
         </div>
+
+        <button
+          onClick={handleDownload}
+          className="text-white"
+        >
+          <span className='flex items-center font-medium opacity-70 hover:opacity-100 px-2 py-1 gap-1'>
+          <span><Download /></span>
+          </span>
+        </button>
+        
       </div>
       <SandpackProvider
         files={files}

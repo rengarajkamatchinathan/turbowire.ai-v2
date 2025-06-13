@@ -17,9 +17,10 @@ function AppSideBar() {
     <Sidebar>
       <SidebarHeader className="p-5">
         <div className="flex items-center gap-2 mb-4">
-          <Zap className="w-6 h-6 text-blue-400 neon-text-blue" />
-          <span className="text-lg font-bold hologram-text">TURBOWIRE</span>
-          <Cpu className="w-5 h-5 text-orange-400 neon-text-orange" />
+          <span className='flex items-center'>
+            <Image src={'/logo.png'} alt="logo" width={40} height={40} />
+            <h1 className='font-semibold opacity-70 hover:opacity-100'>Turbowore.ai</h1>
+            </span>
         </div>
         <Button className="mt-5 neon-btn-blue">
           <MessageCircleCodeIcon /> Start New Chat

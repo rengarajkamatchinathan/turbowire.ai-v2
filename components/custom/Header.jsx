@@ -26,9 +26,10 @@ function Header() {
   return (
     <div className="p-4 flex justify-between items-center">
       <Link href={'/'} className="flex items-center gap-2">
-        <Zap className="w-8 h-8 text-blue-400 neon-text-blue" />
-        <span className="text-2xl font-bold hologram-text">TURBOWIRE</span>
-        <Cpu className="w-6 h-6 text-orange-400 neon-text-orange" />
+        <span className='flex items-center'>
+          <Image src={'/logo.png'} alt="logo" width={40} height={40} />
+          <h1 className='font-semibold opacity-70 hover:opacity-100'>Turbowore.ai</h1>
+          </span>
       </Link>
       
       {!userDetail?.name ? (
@@ -44,7 +45,7 @@ function Header() {
         <div className="flex gap-5 items-center">
           {pathname.includes('/workspace/') && (
             <>
-              <Button variant="ghost" onClick={() => onActionBtn('export')} className="neon-btn-blue">
+              {/* <Button variant="ghost" onClick={() => onActionBtn('export')} className="neon-btn-blue">
                 <Download /> Export
               </Button>
               <Button
@@ -52,7 +53,7 @@ function Header() {
                 className="neon-btn-orange text-white"
               >
                 <Rocket /> Deploy
-              </Button>
+              </Button> */}
             </>
           )}
           {userDetail && (
