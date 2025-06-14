@@ -156,7 +156,7 @@ function ChatView() {
           <div className="flex gap-2">
             <textarea
               placeholder={Lookup.INPUT_PLACEHOLDER}
-              className="outline-none bg-transparent w-full h-32 max-h-56 resize-none"
+              className="outline-none bg-transparent w-full h-24 max-h-32 resize-none"
               onChange={(event) => setUserInput(event.target.value)}
               value={userInput}
             />

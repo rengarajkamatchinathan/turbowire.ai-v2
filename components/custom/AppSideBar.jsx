@@ -19,8 +19,13 @@ function AppSideBar() {
       <SidebarHeader className="p-5">
         <div className="flex items-center gap-2 mb-4">
           <span className='flex items-center'>
-            <Image src={'/logo.png'} alt="logo" width={40} height={40} />
-            <h1 className='font-semibold opacity-70 hover:opacity-100'>Turbowore.ai</h1>
+            <Image src={'/logo.gif'} className='rounded-full p-1' alt="logo" width={40} height={40} />
+            <h1
+             className='font-bold text-transparent bg-clip-text'
+             style={{
+               backgroundImage: "linear-gradient(to right, #1b76ff, #35c5ff)",
+             }}
+             >Turbowore.ai</h1>
             </span>
         </div>
         <Link href={'/'} className="flex items-center gap-2">

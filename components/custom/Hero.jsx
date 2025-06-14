@@ -43,32 +43,20 @@ function Hero() {
   };
 
   return (
-    <div className="flex flex-col items-center mt-36 xl:mt-42 gap-2">
+    <div className="flex flex-col items-center gap-2">
       {/* Logo */}
-      <div className="flex items-center justify-center mb-6">
-  <h1
-    className="text-5xl font-bold text-white"
-    style={{
-      textShadow: `
-        -2px 0 6px #00f0ff,
-        -4px 0 12px #00f0ff,
-        2px 0 6px #ff00c8,
-        4px 0 12px #ff00c8,
-        0 0 20px rgba(255, 0, 128, 0.6),
-        0 0 40px rgba(0, 255, 255, 0.6)
-      `,
-    }}
-  >
-    TURBOWIRE
-  </h1>
-</div>
-
-
-      <h2 className="font-bold text-4xl neon-text-blue">{Lookup.HERO_HEADING}</h2>
-      <p className="text-gray-400 font-medium">{Lookup.HERO_DESC}</p>
+      <div className="flex items-center justify-center my-6">
+        {/* <img src='logo.gif' className='h-32'/> */}
+        
+        <div>
+        <h1 className="text-4xl font-bold text-white">
+          What you want to build?
+        </h1>
+        </div>
+      </div>
       
       <div
-        className="p-5 border rounded-xl max-w-2xl w-full mt-3"
+        className="p-5 border rounded-xl max-w-lg w-full mt-3"
         style={{
           backgroundColor: Colors.BACKGROUND,
         }}
@@ -76,7 +64,7 @@ function Hero() {
         <div className="flex gap-2">
           <textarea
             placeholder={Lookup.INPUT_PLACEHOLDER}
-            className="outline-none bg-transparent w-full h-32 max-h-56 resize-none"
+            className="outline-none bg-transparent w-full h-20 max-h-56 resize-none"
             onChange={(event) => setUserInput(event.target.value)}
           />
           {userInput && (
