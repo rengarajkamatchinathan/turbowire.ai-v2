@@ -5,10 +5,11 @@ import { Button } from '../ui/button';
 import Colors from '@/data/Colors';
 import { UserDetailContext } from '@/context/UserDetailContext';
 import Link from 'next/link';
-import { Download, Rocket, Zap, Cpu, Sparkles } from 'lucide-react';
+import { Download, Rocket, Zap, Cpu } from 'lucide-react';
 import { useSidebar } from '../ui/sidebar';
 import { usePathname } from 'next/navigation';
 import { ActionContext } from '@/context/ActionContext';
+import data from '@/data/Lookup'
 
 function Header() {
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
@@ -24,79 +25,52 @@ function Header() {
   }
 
   return (
-    <div className="p-4 flex justify-between items-center relative">
-      {/* Animated background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#1b76ff]/5 to-transparent opacity-50"></div>
-      
-      <Link href={'/'} className="flex items-center gap-3 relative z-10 group">
-        <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#1b76ff] to-[#35c5ff] rounded-full blur-md opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
-          <Image 
-            src={'/logo.gif'} 
-            alt="logo" 
-            width={40} 
-            height={40} 
-            className="relative rounded-full group-hover:scale-110 transition-transform duration-300" 
-          />
-        </div>
-        <div className="flex items-center gap-2">
+    <div className="p-4 flex justify-between items-center">
+      <Link href={'/'} className="flex items-center gap-2">
+        <span className='flex items-center'>
+          <Image src={'/logo.gif'} alt="logo" width={40} height={40} />
           <h1 
-            className='font-bold text-2xl hologram-text group-hover:scale-105 transition-transform duration-300'
-            data-text="Turbowire.ai"
-          >
-            Turbowire.ai
-          </h1>
-          <Sparkles className="w-5 h-5 text-[#35c5ff] animate-pulse" />
-        </div>
+          className='font-bold text-transparent bg-clip-text'
+          style={{
+            backgroundImage: "linear-gradient(to right, #1b76ff, #35c5ff)",
+          }}
+          >{data?.APP_NAME}</h1>
+          </span>
       </Link>
       
       {!userDetail?.name ? (
-        <div className="flex gap-4 relative z-10">
-          <Button 
-            variant="ghost" 
-            className="text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-300 hover-lift"
+        <div className="flex gap-5">
+          <Button variant="ghost">Sign In</Button>
+          <Button
+            className="neon-btn-orange text-white"
           >
-            Sign In
-          </Button>
-          <Button className="neon-btn-blue hover-lift">
-            <Zap className="w-4 h-4 mr-2" />
             Get Started
           </Button>
         </div>
       ) : (
-        <div className="flex gap-4 items-center relative z-10">
+        <div className="flex gap-5 items-center">
           {pathname.includes('/workspace/') && (
-            <div className="flex gap-3">
-              {/* <Button 
-                variant="ghost" 
-                onClick={() => onActionBtn('export')} 
-                className="neon-btn-blue hover-lift group"
-              >
-                <Download className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-200" /> 
-                Export
+            <>
+              {/* <Button variant="ghost" onClick={() => onActionBtn('export')} className="neon-btn-blue">
+                <Download /> Export
               </Button>
               <Button
                 onClick={() => onActionBtn('deploy')}
-                className="neon-btn-orange hover-lift group"
+                className="neon-btn-orange text-white"
               >
-                <Rocket className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-200" /> 
-                Deploy
+                <Rocket /> Deploy
               </Button> */}
-            </div>
+            </>
           )}
           {userDetail && (
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#1b76ff] to-[#35c5ff] rounded-full blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
-              <Image
-                onClick={toggleSidebar}
-                src={userDetail?.picture}
-                alt="userImage"
-                width={40}
-                height={40}
-                className="relative rounded-full cursor-pointer object-cover border-2 border-transparent hover:border-[#1b76ff] transition-all duration-300 hover:scale-110"
-              />
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-black animate-pulse"></div>
-            </div>
+            <Image
+              onClick={toggleSidebar}
+              src={userDetail?.picture}
+              alt="userImage"
+              width={40}
+              height={40}
+              className="rounded-full cursor-pointer object-cover border-2 border-blue-400 hover:border-orange-400 transition-colors duration-300"
+            />
           )}
         </div>
       )}

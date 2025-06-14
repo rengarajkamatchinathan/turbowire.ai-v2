@@ -14,7 +14,7 @@ import axios from 'axios';
 import { useConvex, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useParams } from 'next/navigation';
-import { Download, Loader2Icon, Code, Eye, Sparkles } from 'lucide-react';
+import { Download, Loader2Icon } from 'lucide-react';
 import { countToken } from './ChatView';
 import { UserDetailContext } from '@/context/UserDetailContext';
 import { toast } from 'sonner';
@@ -113,49 +113,32 @@ function CodeView() {
 
   return (
     <div className="relative">
-      {/* Enhanced Header */}
-      <div className="glass-dark p-4 border-b border-white/10 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 glass p-2 rounded-full border border-white/10">
-            <button
-              onClick={() => setActiveTab('code')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
-                activeTab == 'code' 
-                  ? 'bg-gradient-to-r from-[#1b76ff] to-[#35c5ff] text-white shadow-lg' 
-                  : 'text-gray-300 hover:text-white hover:bg-white/10'
-              }`}
-            >
-              <Code className="w-4 h-4" />
-              <span className="text-sm font-medium">Code</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('preview')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
-                activeTab == 'preview' 
-                  ? 'bg-gradient-to-r from-[#1b76ff] to-[#35c5ff] text-white shadow-lg' 
-                  : 'text-gray-300 hover:text-white hover:bg-white/10'
-              }`}
-            >
-              <Eye className="w-4 h-4" />
-              <span className="text-sm font-medium">Preview</span>
-            </button>
-          </div>
-          
-          <div className="flex items-center gap-2 text-gray-400">
-            <Sparkles className="w-4 h-4 text-[#35c5ff] animate-pulse" />
-            <span className="text-sm">Live Development Environment</span>
-          </div>
+      <div className="bg-[#181818] w-full p-2 border flex items-center justify-between">
+        <div className="flex items-center flex-wrap shrink-0 bg-black p-1 w-[140px] gap-3 justify-center rounded-full">
+          <h2
+            onClick={() => setActiveTab('code')}
+            className={`text-sm cursor-pointer ${activeTab == 'code' && 'text-blue-500 bg-blue-500 bg-opacity-25 p-1 px-2  rounded-full'} `}
+          >
+            Code
+          </h2>
+          <h2
+            onClick={() => setActiveTab('preview')}
+            className={`text-sm cursor-pointer ${activeTab == 'preview' && 'text-blue-500 bg-blue-500 bg-opacity-25 p-1 px-2  rounded-full'} `}
+          >
+            Preview
+          </h2>
         </div>
 
         <button
           onClick={handleDownload}
-          className="neon-btn-blue hover-lift group"
+          className="text-white"
         >
-          <Download className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-200" />
-          <span>Export</span>
+          <span className='flex items-center font-medium opacity-70 hover:opacity-100 px-2 py-1 gap-1'>
+          <span><Download /></span>
+          </span>
         </button>
+        
       </div>
-
       <SandpackProvider
         files={files}
         template="react"
@@ -169,41 +152,22 @@ function CodeView() {
       >
         <SandpackLayout>
           {activeTab == 'code' ? (
-            <div className="flex h-[80vh]">
-              <div className="w-64 border-r border-white/10">
-                <SandpackFileExplorer className="h-full" />
-              </div>
-              <div className="flex-1">
-                <SandpackCodeEditor className="h-full" />
-              </div>
-            </div>
+            <>
+              <SandpackFileExplorer style={{ height: '80vh' }} />
+              <SandpackCodeEditor style={{ height: '80vh' }} />
+            </>
           ) : (
-            <div className="h-[80vh]">
+            <>
               <SandpackPreviewClient />
-            </div>
+            </>
           )}
         </SandpackLayout>
       </SandpackProvider>
 
       {loading && (
-        <div className="absolute inset-0 glass-dark flex flex-col justify-center items-center z-50">
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#1b76ff] to-[#35c5ff] rounded-full blur-xl opacity-50 animate-pulse"></div>
-            <div className="relative p-6 bg-gradient-to-r from-[#1b76ff] to-[#35c5ff] rounded-full">
-              <Loader2Icon className="animate-spin w-12 h-12 text-white" />
-            </div>
-          </div>
-          <div className="mt-6 text-center">
-            <h2 className="text-xl font-semibold text-white mb-2">Generating your files...</h2>
-            <div className="flex items-center justify-center gap-2 text-gray-400">
-              <div className="flex space-x-1">
-                <div className="w-2 h-2 bg-[#1b76ff] rounded-full animate-bounce"></div>
-                <div className="w-2 h-2 bg-[#35c5ff] rounded-full animate-bounce delay-100"></div>
-                <div className="w-2 h-2 bg-[#1b76ff] rounded-full animate-bounce delay-200"></div>
-              </div>
-              <span className="text-sm">AI is crafting your code...</span>
-            </div>
-          </div>
+        <div className="p-10 bg-gray-900 bg-opacity-80 absolute top-0 w-full h-full flex justify-center items-center">
+          <Loader2Icon className="animate-spin w-10 h-10 text-white" />
+          <h2>Generating your files...</h2>
         </div>
       )}
     </div>
