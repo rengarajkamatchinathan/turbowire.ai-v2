@@ -54,7 +54,7 @@ function Hero() {
       {/* Logo */}
       <div className="flex items-center justify-center my-6">        
         <div>
-        <h1 className="text-4xl font-bold text-white">
+        <h1 className="text-4xl font-bold text-white opacity-90 text-center">
           What you want to build?
         </h1>
         </div>

@@ -27,6 +27,14 @@ function SideBarFooter() {
   ];
   const onOptionClock = (option) => {
     console.log(option);
+    if (option.name === 'Sign Out') {
+      console.log('LOGGED OUT');
+      localStorage.removeItem('user');
+  
+      // Reload the page after logout
+      window.location.reload();
+      return; // Make sure to stop further execution like router.push
+    }
     router.push(option.path);
   };
 

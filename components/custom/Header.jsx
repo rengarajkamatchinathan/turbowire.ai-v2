@@ -51,15 +51,7 @@ function Header() {
         <div className="flex gap-5 items-center">
           {pathname.includes('/workspace/') && (
             <>
-              {/* <Button variant="ghost" onClick={() => onActionBtn('export')} className="neon-btn-blue">
-                <Download /> Export
-              </Button>
-              <Button
-                onClick={() => onActionBtn('deploy')}
-                className="neon-btn-orange text-white"
-              >
-                <Rocket /> Deploy
-              </Button> */}
+      
             </>
           )}
           {userDetail && (
